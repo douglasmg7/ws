@@ -1,0 +1,38 @@
+{{define "layout"}}
+<!doctype html>
+<html lang='en'>
+    <head>
+        <!-- <meta Content-Type='text/html' charset='utf-8'> -->
+        <meta charset='utf-8'>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Zunka Admin">
+        <title>{{template "title" .}}</title>
+		<!-- <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i&display=swap" rel="stylesheet">  -->
+        <link rel='stylesheet' href='/css/layouts/normalize.css?0001'>
+		<link rel='stylesheet' href='/css/layouts/reset.css?v0001'>
+        <link rel='stylesheet' href='/css/layouts/layout.css?000.1'>
+        <link rel='stylesheet' href='/fontawesome/css/all.min.css?000.1'>
+        {{template "embedded-css"}}
+        <!-- <link rel='shortcut icon' href='/static/img/favicon.ico' type='image/x-icon'> -->
+    </head>
+    <body>
+        <div id="header"> 
+            {{template "partials/header" .}} 
+        </div>
+        <div id="menu"> 
+            {{template "partials/menu" .}} 
+        </div>
+        <div id="main"> 
+            {{template "content" .}} 
+        </div>
+        <div id="footer"> 
+            {{template "partials/footer" .}} 
+        </div>
+        <script src="/js/layouts/layout.js?0001"></script>
+        {{template "embedded-js"}} 
+    </body>
+</html>
+{{end}}
+
+{{define "embedded-css"}} {{end}}
+{{define "embedded-js"}} {{end}}

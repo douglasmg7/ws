@@ -9,7 +9,7 @@ import (
 	_ "github.com/lib/pq"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/template/pug"
+	"github.com/gofiber/template/html"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -54,10 +54,10 @@ func main() {
 
 	defer db.Close()
 
-	engine := pug.New("./views", ".pug")
+	engine := html.New("./views", ".html")
 	if mode == Dev {
 		engine.Reload(true) // Optional. Default: false
-		// engine.Debug(true)  // Optional. Default: false
+		engine.Debug(true)  // Optional. Default: false
 	}
 
 	app := fiber.New(fiber.Config{
@@ -68,13 +68,6 @@ func main() {
 		return c.Render("index", fiber.Map{
 			"Title": "Hello, World!",
 		})
-	})
-
-	app.Get("/layout", func(c *fiber.Ctx) error {
-		// Render index within layouts/main
-		return c.Render("index", fiber.Map{
-			"Title": "Hello, World!",
-		}, "layouts/main")
 	})
 
 	app.Get("/ping", func(c *fiber.Ctx) error {
@@ -91,6 +84,32 @@ func main() {
 		fmt.Printf("[debug] %+v", product)
 		return c.SendString(product.Title)
 	})
+
+	app.Get("/admin/products", func(c *fiber.Ctx) error {
+		product := Product{}
+		err := db.Get(&product, "select * from products where id=$1", "1")
+		if err != nil {
+			fmt.Printf("[error] %v\n", err)
+		}
+		data := struct {
+			Session Session
+		}{
+			Session: Session{
+				UserName:          "Lucas",
+				CartProductsCount: 3,
+			},
+		}
+		data.Session.UserGroups.Set(GroupAdmin)
+		log.Printf("Is admin: %v", data.Session.UserGroups.IsAdmin())
+
+		fmt.Printf("[debug] %+v", product)
+		// return c.Render("admin/productList", fiber.Map{
+		// "Title": "Hello, World!",
+		// })
+		return c.Render("admin/productList", data)
+	})
+
+	app.Static("/", "./static")
 
 	log.Fatal(app.Listen(":8080"))
 }

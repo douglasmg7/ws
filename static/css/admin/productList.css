@@ -1,0 +1,26 @@
+section {
+  padding: 0 0 1em 0;
+}
+table {
+  border-spacing: 0;
+  width: 100%;
+  text-align: left;
+}
+tr.product-commercialize {
+  background-color: #f2dede;
+}
+tr.product-commercialize.product-active {
+  background-color: #bdffbd;
+}
+td {
+  cursor: pointer;
+}
+td a {
+  text-decoration: none;
+  color: #000;
+}
+@media (max-width: 600px) {
+  .hide-on-mobile {
+    display: none;
+  }
+}
