@@ -97,6 +97,7 @@ func main() {
 			Session: Session{
 				UserName:          "Lucas",
 				CartProductsCount: 3,
+				Categories:        []string{"notebook", "monitor"},
 			},
 		}
 		data.Session.UserGroups.Set(GroupAdmin)

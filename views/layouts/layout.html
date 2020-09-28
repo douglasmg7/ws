@@ -19,15 +19,17 @@
         <div id="header"> 
             {{template "partials/header" .}} 
         </div>
-        <div id="menu"> 
-            {{template "partials/menu" .}} 
+        <div id="menu-container">
+            <div id="menu"> 
+                {{template "partials/menu" .}} 
+            </div>
         </div>
-        <div id="main"> 
+        <main id="app"> 
             {{template "content" .}} 
-        </div>
-        <div id="footer"> 
+        </main>
+        <footer> 
             {{template "partials/footer" .}} 
-        </div>
+        </footer>
         <script src="/js/layouts/layout.js?0001"></script>
         {{template "embedded-js"}} 
     </body>
