@@ -1,4 +1,4 @@
-module github.com/douglasmg7/ws
+module ws
 
 go 1.15
 

@@ -1,4 +1,5 @@
 .gitsecret/keys/random_seed
 
+ws
 bin/profile.d/ws.sh
 
