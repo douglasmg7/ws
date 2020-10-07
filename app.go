@@ -1,19 +1,19 @@
 package main
 
 import (
+	"ws/db"
 	"ws/handlers"
 
 	"log"
 	"os"
 	"strings"
 
-	_ "github.com/lib/pq"
+	// _ "github.com/lib/pq"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/template/html"
-	"github.com/jmoiron/sqlx"
 )
 
 type RunMode int
@@ -34,8 +34,6 @@ func (r RunMode) String() string {
 
 var mode = Prod
 
-var db *sqlx.DB
-
 func main() {
 	// Run mode.
 	mode = Dev
@@ -44,13 +42,7 @@ func main() {
 	}
 	log.Printf("Running in %v mode (version %s)\n", mode, version)
 
-	// this Pings the database trying to connect, panics on error
-	// use sqlx.Open() for sql.Open() semantics
-	db, err := sqlx.Connect("postgres", "user=ws dbname=ws sslmode=disable")
-	if err != nil {
-		log.Fatalln(err)
-	}
-
+	db.Connect()
 	defer db.Close()
 
 	engine := html.New("./views", ".html")

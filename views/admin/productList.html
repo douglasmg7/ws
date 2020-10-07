@@ -12,6 +12,11 @@
 
 {{define "content"}}
 <div class="content">
-    <h3>Produtos</h3>
+    {{range .Products}}
+        <h3>
+            <span>{{.ID}}</span>
+            <span>{{.Title}}</span>
+        </h3>
+    {{end}}
 </div>
 {{end}}
