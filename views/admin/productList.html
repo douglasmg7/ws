@@ -12,6 +12,7 @@
 
 {{define "content"}}
 <div class="content">
+    <h2>{{.Session.UserName}}</h2>
     {{range .Products}}
         <h3>
             <span>{{.ID}}</span>

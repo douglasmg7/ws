@@ -18,4 +18,4 @@ fi
 
 echo Creating $WS_DB_NAME db...
 createdb $WS_DB_NAME
-psql -U $WS_DB_USER -d $WS_DB_NAME -f ./tables.sql
+psql -U $WS_DB_USER -d $WS_DB_NAME -f ./schema.sql

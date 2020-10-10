@@ -3,6 +3,7 @@ package handlers
 import (
 	"fmt"
 	"log"
+	"os"
 	"ws/db"
 	"ws/models"
 
@@ -10,27 +11,32 @@ import (
 	_ "github.com/lib/pq" // postgres drive
 )
 
+// Process ID
+func Pid(c *fiber.Ctx) error {
+	return c.SendString(fmt.Sprintf("Worker #%v", os.Getpid()))
+}
+
+// Session
+func Session(c *fiber.Ctx) error {
+	return c.SendString(fmt.Sprintf("Session id: %v", c.Locals("session_id")))
+}
+
 // Get product list
 func ProductsList(c *fiber.Ctx) error {
+	// Get products
 	products, err := db.GetAllProduct()
 	if err != nil {
 		fmt.Printf("[error] %v\n", err)
 	}
+	// Data
 	data := struct {
 		Session  models.Session
 		Products []models.Product
 	}{
-		Session: models.Session{
-			UserName:          "Lucas",
-			CartProductsCount: 3,
-			Categories:        []string{"notebook", "monitor"},
-		},
+		Session:  c.Locals("session").(models.Session),
 		Products: products,
 	}
-	data.Session.UserGroups.Set(models.GroupAdmin)
-	log.Printf("Is admin: %v", data.Session.UserGroups.IsAdmin())
 
-	fmt.Printf("[debug] products: %+v", products)
 	return c.Render("admin/productList", data)
 }
 
