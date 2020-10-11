@@ -23,11 +23,14 @@ func Session(c *fiber.Ctx) error {
 
 // Get product list
 func ProductsList(c *fiber.Ctx) error {
+	// return c.SendString("admin/productList")
+
 	// Get products
 	products, err := db.GetAllProduct()
 	if err != nil {
 		fmt.Printf("[error] %v\n", err)
 	}
+
 	// Data
 	data := struct {
 		Session  models.Session
@@ -51,7 +54,7 @@ func Product(c *fiber.Ctx) error {
 	}{
 		Session: models.Session{
 			UserName:          "Lucas",
-			CartProductsCount: 3,
+			CartProductsCount: 5,
 			Categories:        []string{"notebook", "monitor"},
 		},
 	}

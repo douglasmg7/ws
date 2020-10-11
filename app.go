@@ -112,6 +112,7 @@ func SetupApp() *fiber.App {
 	app.Use(sessionMiddleware)
 
 	index := app.Group("/")
+	auth := app.Group("/auth")
 	admin := app.Group("/admin")
 
 	///////////////////////////////////////////////////////////////////////////
@@ -121,9 +122,13 @@ func SetupApp() *fiber.App {
 	index.Get("/", handlers.Index)
 	index.Get("/ping", handlers.Ping)
 
+	// Auth
+	auth.Get("/signin", handlers.Signin)
+
 	// Admin
 	admin.Get("/pid", handlers.Pid)
 	admin.Get("/session", handlers.Session)
+	// admin.Get("/products", handlers.ProductsList)
 	admin.Get("/products", handlers.ProductsList)
 
 	// Statics
@@ -153,8 +158,8 @@ func sessionMiddleware(c *fiber.Ctx) error {
 	c.Locals("session_id", store.ID())
 
 	session := models.Session{
-		UserName:          "Lucas",
-		CartProductsCount: 3,
+		UserName:          "",
+		CartProductsCount: 6,
 		Categories:        []string{"notebook", "monitor"},
 	}
 	session.UserGroups.Set(models.GroupAdmin)

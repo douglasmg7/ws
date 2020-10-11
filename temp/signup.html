@@ -1,0 +1,58 @@
+{{template "layout" .}}
+
+{{ define "embedded-css"}}
+<style type="text/css">
+    .content {
+        max-width: var(--width-small);
+    }
+    a.reset-pass {
+        display: block;
+        margin: .2em 0 1em 0;
+    }
+    p {
+        margin-bottom: 0;
+    }
+</style>
+{{end}}
+
+{{define "title"}}Cadastro{{end}}
+
+{{define "content"}}
+    <form class="content" action="/ns/auth/signup" method="post">
+        <h2 class="title">Criar cadastro</h2>
+        <!-- name -->
+        <label {{if .Name.Message}} class="error" {{end}} for="name">
+            {{if not .Name.Message}} Nome {{end}}
+            {{if .Name.Message}} {{.Name.Message}} {{end}}
+         </label> 
+        <input type="text" id="name" name="name" value={{.Name.Value}}>
+
+        <!-- email -->
+        <label {{if .Email.Message}} class="error" {{end}} for="email">
+            {{if not .Email.Message}} Email {{end}}
+            {{if .Email.Message}} {{.Email.Message}} {{end}}
+        </label> 
+        <input type="text" id="email" name="email" value={{.Email.Value}}>
+
+        <!-- password -->
+        <label {{if .Password.Message}} class="error" {{end}} for="password">
+            {{if not .Password.Message}} Senha {{end}}
+            {{if .Password.Message}} {{.Password.Message}} {{end}}
+        </label> 
+        <input type="password" id="password" name="password" value={{.Password.Value}}>
+
+        <!-- confirm password -->
+        <label {{if .PasswordConfirm.Message}} class="error" {{end}} for="passwordConfirm">
+            {{if not .PasswordConfirm.Message}} Confirme a senha {{end}}
+            {{if .PasswordConfirm.Message}} {{.PasswordConfirm.Message}} {{end}}
+        </label> 
+        <input type="password" id="passwordConfirm" name="passwordConfirm" value={{.PasswordConfirm.Value}}>
+
+        <!-- submit -->
+        <input class="btn btn-info" type="submit" value="Cadastrar">
+
+        <!-- Foot message. -->
+        {{if .SuccessMsg}} <div class="success-msg"> {{.SuccessMsg}} </div> {{end}}
+        {{if .WarnMsg}} <div class="warn-msg"> {{.WarnMsg}} </div> {{end}}
+    </form>
+{{end}}

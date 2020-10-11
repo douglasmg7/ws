@@ -56,14 +56,14 @@
         </a>
         {{if eq .Session.UserName ""}}
             <a class="item" href="/cart">Meu carrinho</a>
-            <a class="item" href="/user/signin">Entrar</a>
+            <a class="item" href="/auth/signin">Entrar</a>
         {{else}}
             <p class="item">{{ .Session.UserName }}</p>
             <a class="item" href="/cart">Meu carrinho</a>
             <a class="item" href="/user/orders">Meus pedidos</a>
             <a class="item" href="/user/address">Meus endereços</a>
             <a class="item" href="/user/access">Meus dados</a>
-            <a class="item" href="/user/signout">Sair</a>            
+            <a class="item" href="/auht/signout">Sair</a>            
         {{end}}
     </div>
 </div>

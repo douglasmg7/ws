@@ -3,6 +3,7 @@ module ws
 go 1.15
 
 require (
+	github.com/go-redis/redis/v7 v7.4.0
 	github.com/gofiber/fiber/v2 v2.0.2
 	github.com/gofiber/session/v2 v2.0.1
 	github.com/gofiber/template v1.6.2
